@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void showNotification(Context context) {
-
+//jkj
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setContentTitle("My notification")
