@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 public class AlarmReceiver extends BroadcastReceiver {
-
+    AlarmManager am;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -23,7 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         wl.acquire();
 
-        Toast.makeText(context, "take your pills you idiot", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "take your pills", Toast.LENGTH_LONG).show();
         Log.i("test", "ALARM!!!");
         showNotification(context);
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     private void showNotification(Context context) {
-//jkj
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setContentTitle("My notification")
@@ -50,10 +50,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
     public void setOnetimeTimer(Context context, long when) {
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        am.set(AlarmManager.RTC_WAKEUP, when, pi);
+        final int _id = (int) System.currentTimeMillis();
+        PendingIntent appIntent = PendingIntent.getBroadcast(context, _id, intent,PendingIntent.FLAG_ONE_SHOT);
+        //PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        //am.set(AlarmManager.RTC_WAKEUP, when, pi);
+        am.set(AlarmManager.RTC_WAKEUP, when, appIntent);
     }
 
 

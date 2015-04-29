@@ -37,6 +37,8 @@ public class MainActivity2Activity extends FragmentActivity {
     private ArrayList<String> mos;
     public static long timePicked = -1;
     static Calendar c;
+    static int h;
+    static int m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +78,7 @@ return super.onOptionsItemSelected(item);}
 
         alertSimple.setPositiveButton("OK", new DialogInterface.OnClickListener()
         { public void onClick(DialogInterface dialog, int which) {
-        mos.add("hjsdlk");
+
         adapter.notifyDataSetChanged();
                 if (timePicked != -1) {
 
@@ -84,12 +86,14 @@ return super.onOptionsItemSelected(item);}
 
                     if(alarm != null) {
                      alarm.setOnetimeTimer(MainActivity2Activity.this, timePicked);
-                     Toast.makeText(getBaseContext(), "set sety", Toast.LENGTH_LONG).show();
-                     Log.d("test", "ALARM SET!!!");}}
-                 else {
+                        mos.add("Alarm is set on "+h+":"+m);
+
+                        Toast.makeText(getApplicationContext(), "time is set", Toast.LENGTH_LONG).show();
+                    }
+                        else {
                     //warn the user for ALARM not set?
-                    Log.w("test", "ALARM not SET!!!");
-                }
+                    Toast.makeText(getApplicationContext(), "time is not set", Toast.LENGTH_LONG).show();
+                }}
 
             }});
 
@@ -153,12 +157,10 @@ return super.onOptionsItemSelected(item);}
             //Calendar n = new GregorianCalendar();
             c.set(Calendar.HOUR_OF_DAY, hourOfDay);
             c.set(Calendar.MINUTE, minute);
-
-            timePicked = c.getTimeInMillis();
-            Toast.makeText(this.getActivity(), "time is set"+timePicked, Toast.LENGTH_LONG).show();
-            Log.d("test", "timePicked: " + timePicked);
-            Log.d("test", "current: " + System.currentTimeMillis() );
-
+            final long time=c.getTimeInMillis();
+            timePicked = time;
+            h=hourOfDay;
+            m=minute;
 
         }
 

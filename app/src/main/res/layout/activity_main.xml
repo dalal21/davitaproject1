@@ -3,33 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/ba"
+    android:longClickable="true">
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sign in"
         android:id="@+id/button2"
         android:gravity="left"
         android:layout_gravity="bottom"
-        android:onClick="anotherActivity"/>
+        android:onClick="anotherActivity"
+        android:background="@drawable/b1" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="205dp"
+        android:layout_height="356dp"
         android:id="@+id/imageView"
-        android:src="@drawable/logo"
-        android:layout_gravity="center_horizontal|left"
-        android:layout_weight="1.03"
-        android:contentDescription="" />
+        android:src="@drawable/d1"
+        android:contentDescription=""
+        android:layout_marginTop="50dp"
+        android:adjustViewBounds="true" />
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sign up"
         android:id="@+id/button"
         android:layout_gravity="bottom"
-        android:gravity="right" />
+        android:gravity="right"
+        android:background="@drawable/b2"
+        android:elegantTextHeight="true"
+        android:singleLine="true" />
 </LinearLayout>

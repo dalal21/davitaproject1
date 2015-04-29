@@ -38,6 +38,8 @@ public class sign_in extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
        bb1 = (Button) findViewById(R.id.b1);
+
+
     }
 
 
@@ -112,7 +114,7 @@ public class sign_in extends Activity {
                     for(int i=0;i<Jarray.length();i++)
                     {
 
-                        JSONObject Jasonobject = null;
+                        JSONObject Jasonobject =null;
                         ee1=(EditText) findViewById(R.id.pass);
                         Jasonobject = Jarray.getJSONObject(i);
 
@@ -138,11 +140,15 @@ public class sign_in extends Activity {
             }
         }
     public void maybthlast(View view) {
-        switch (view.getId()) {
+        /*switch (view.getId()) {
             case R.id.b1:
                 new tesfir().execute();
                 break;
-        }
+                        }
+*/
+
+        Intent intent = new Intent(sign_in.this, MainActivity2Activity.class);
+        startActivity(intent);
     }
 
 
