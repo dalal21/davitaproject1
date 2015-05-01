@@ -47,7 +47,7 @@ public class MainActivity2Activity extends FragmentActivity {
         setContentView(R.layout.activity_main_activity2);
         l1=(ListView) findViewById(R.id.listView);
         mos= new ArrayList<String>();
-        adapter =new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,mos);
+        adapter =new ArrayAdapter<String>(getApplicationContext(),R.layout.item,mos);
          l1.setAdapter(adapter);}
 
 
