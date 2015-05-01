@@ -8,11 +8,19 @@
         android:id="@+id/dody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/s55s" />
+        android:text="@string/s55s"
+        android:background="#58ACFA"
+        android:textColor="#f4bb4f"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"/>
     <Button
         android:id="@+id/dody2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/s33s" />
+        android:text="@string/s33s"
+        android:background="#58ACFA"
+        android:textColor="#f4bb4f"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp" />
 
 </LinearLayout>

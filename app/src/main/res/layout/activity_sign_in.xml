@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fffF"
+    android:background="@drawable/bg2"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,27 +10,28 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
 
 
         <EditText
             android:id="@+id/pass"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="#3CC5FF"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/b1"
-            android:layout_marginTop="10dp"
-            android:onClick="maybthlast"
-            android:background="#3CC5FF"
-            android:text="Login"
-            android:textColor="@android:color/white" />
+            android:background="#ffff"
+            android:inputType="textPassword"
+            android:textColor="#f4bb4f"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:textColor="@android:color/white"
+        android:background="@drawable/go"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

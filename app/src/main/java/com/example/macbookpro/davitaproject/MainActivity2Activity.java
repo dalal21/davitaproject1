@@ -4,6 +4,7 @@ package com.example.macbookpro.davitaproject;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,14 +12,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class MainActivity2Activity extends FragmentActivity {
         setContentView(R.layout.activity_main_activity2);
         l1=(ListView) findViewById(R.id.listView);
         mos= new ArrayList<String>();
-         adapter= new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,mos);
+        adapter =new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,mos);
          l1.setAdapter(adapter);}
 
 
@@ -70,8 +72,7 @@ return super.onOptionsItemSelected(item);}
 
     public void adding(View view) {
         final AlertDialog.Builder alertSimple = new AlertDialog.Builder(MainActivity2Activity.this);
-        alertSimple.setTitle("set your alarm");
-        alertSimple.setMessage("set the time for your pills");
+        alertSimple.setTitle("Set your alarm");
 
 
 
@@ -101,7 +102,7 @@ return super.onOptionsItemSelected(item);}
 
 
         alertSimple.setNegativeButton("cancel", null);
-        alertSimple.setIcon(R.drawable.vo);
+        alertSimple.setIcon(R.drawable.clock2);
 
 
 

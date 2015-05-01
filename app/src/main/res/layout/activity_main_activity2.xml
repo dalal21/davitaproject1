@@ -3,13 +3,14 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#2E9AFE"
-    android:weightSum="1">
+    android:background="#ffff"
+    android:weightSum="1"
+    android:textColor="#f4bb4f">
 
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:id="@+id/re"
         android:background="#ffff">
 
@@ -18,26 +19,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s1s"
             android:id="@+id/tv1"
+            android:background="@drawable/add"
+            android:textColor="#f4bb4f"
+            android:textIsSelectable="true"
+            android:textSize="50sp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:textColor="#0174DF"
-            android:textIsSelectable="true"
-            android:textSize="30sp"
-            android:layout_marginTop="18dp" />
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/imageButton"
+            android:layout_toLeftOf="@+id/imageButton" />
 
         <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/imageButton"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/s2s"
             android:onClick="adding"
-            android:src="@drawable/add"
-            android:longClickable="true" />
+            android:longClickable="true"
+            android:background="@drawable/ad"
+            android:adjustViewBounds="true" />
     </RelativeLayout>
 
     <LinearLayout
@@ -48,20 +52,15 @@
         android:id="@+id/thelist">
 
 
-
-        <ListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/listView"
-            android:divider="@drawable/lin1"
-            android:dividerHeight="3dip"
-            android:cacheColorHint="#ffff"
-            android:drawSelectorOnTop="false"/>
-
-
-
-
-
+        <ListView android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@drawable/line"
+        android:dividerHeight="3dip"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:drawSelectorOnTop="false"
+        />
     </LinearLayout>
 
 

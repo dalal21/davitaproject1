@@ -10,10 +10,10 @@
     <string name="s5s">Enter you ID</string>
     <string name="s6s">Now</string>
     <string name="s8s">here</string>
-    <string name="s1s">Add Alart</string>
+    <string name="s1s">Add Alert</string>
     <string name="s2s">img</string>
     <string name="s3s">No alert</string>
-    <string name="s55s">set the time for your pills</string>
+    <string name="s55s">Time</string>
     <string name="s00s">No data</string>
     <string name="s33s">what pills</string>
     <string-array name="pills">
@@ -27,5 +27,11 @@
         <item>aspren</item>
         <item>aspren</item>
     </string-array>
+    <string name="title_activity_tran">tran</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="b99b">Login</string>
+    <string name="b88b">b2</string>
+    <string name="b44v">b5</string>
 
 </resources>

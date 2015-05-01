@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
@@ -37,159 +35,115 @@ public class sign_in extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-       bb1 = (Button) findViewById(R.id.b1);
+        ee1 = (EditText) findViewById(R.id.pass);
+        bb1 = (Button) findViewById(R.id.b1);
 
 
     }
 
 
+    class tesfir extends AsyncTask<String, String, Void> {
+
+        private ProgressDialog prdi = new ProgressDialog(sign_in.this);
+        InputStream is = null;
+        String result = "";
+
+        @Override
+        protected void onPreExecute() {
+            prdi.setMessage("please wait");
+            prdi.show();
+            prdi.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface arg0) {
+                    tesfir.this.cancel(true);
+                }
+            });
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String url = "http://davitacare.byethost24.com/demo.php";
+            HttpClient hc = new DefaultHttpClient();
+            HttpPost hp = new HttpPost(url);
+
+            ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
+
+            try {
+                hp.setEntity(new UrlEncodedFormEntity(param));
+                HttpResponse hr = hc.execute(hp);
+                HttpEntity he = hr.getEntity();
+                is = he.getContent();
 
 
+            } catch (Exception e) {
+                Log.e("Log_tag", "Error  " + e.toString());
+                Toast.makeText(sign_in.this, "please try again", Toast.LENGTH_LONG).show();
+            }
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                String line = "";
+                while ((line = br.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                result = sb.toString();
 
-
-        class tesfir extends AsyncTask<String, String, Void> {
-
-        private ProgressDialog prdi=new ProgressDialog(sign_in.this);
-            InputStream is=null;
-            String result="";
-
-            @Override
-            protected  void  onPreExecute(){
-                prdi.setMessage("please wait");
-                prdi.show();
-                prdi.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface arg0) {
-                        tesfir.this.cancel(true);
-                    }
-                });
+            } catch (Exception e) {
+                // TODO: handle exception
+                Log.e("log_tag", "Error converting result " + e.toString());
 
             }
 
-            @Override
-            protected Void doInBackground(String... params) {
-                String url="http://davitacare.byethost24.com/demo.php";
-                HttpClient hc=new DefaultHttpClient();
-                HttpPost hp= new HttpPost(url);
+            return null;
+        }
 
-                ArrayList<NameValuePair> param =new ArrayList<NameValuePair>();
-
-                try{
-                    hp.setEntity(new UrlEncodedFormEntity(param));
-                    HttpResponse hr=hc.execute(hp);
-                    HttpEntity he=hr.getEntity();
-                    is=he.getContent();
+        @Override
+        protected void onPostExecute(Void v) {
 
 
-                } catch (Exception e) {
-                    Log.e("Log_tag", "Error  " + e.toString());
-                    Toast.makeText(sign_in.this, "please try again", Toast.LENGTH_LONG).show();
-                }
-                   try{
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    StringBuilder sb = new StringBuilder();
-                    String line = "";
-                    while((line=br.readLine())!=null)
-                    {
-                        sb.append(line+"\n");
+            try {
+                JSONArray Jarray = new JSONArray(result);
+                for (int i = 0; i < Jarray.length(); i++) {
+
+                    JSONObject Jasonobject = null;
+
+                    Jasonobject = Jarray.getJSONObject(i);
+
+
+                    String id = Jasonobject.getString("pid");
+
+                    if (ee1.getText().toString().equals(id)) {
+
+                        Intent intent = new Intent(sign_in.this, MainActivity2Activity.class);
+
+                        intent.putExtra(EXTRA_MESSAGE, id);
+                        startActivity(intent);
+                        break;
+
                     }
-                       is.close();
-                       result=sb.toString();
-
-                   }
-                   catch (Exception e) {
-                       // TODO: handle exception
-                       Log.e("log_tag", "Error converting result "+e.toString());
-                   }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void v) {
-
-
-                try {
-                    JSONArray Jarray = new JSONArray(result);
-                    for(int i=0;i<Jarray.length();i++)
-                    {
-
-                        JSONObject Jasonobject =null;
-                        ee1=(EditText) findViewById(R.id.pass);
-                        Jasonobject = Jarray.getJSONObject(i);
-
-
-                        String id = Jasonobject.getString("pid");
-
-                        if(ee1.getText().toString().equals(id)) {
-
-                            Intent intent = new Intent(sign_in.this, MainActivity2Activity.class);
-
-                            intent.putExtra(EXTRA_MESSAGE,id);
-                                startActivity(intent);
-                            break;
-
-                        }
-                    }
-                    this.prdi.dismiss();
                 }
-                catch (Exception e) {
-                    // TODO: handle exception
-                    Log.e("log_tag", "Error parsing data "+e.toString());
-                }
+                this.prdi.dismiss();
+            } catch (Exception e) {
+                // TODO: handle exception
+                Toast.makeText(sign_in.this, "error parsing data", Toast.LENGTH_LONG).show();
             }
         }
-    public void maybthlast(View view) {
-        /*switch (view.getId()) {
+    }
+
+
+    public void onClick(View v) {
+        /*// TODO Auto-generated method stub
+        switch (v.getId()) {
             case R.id.b1:
                 new tesfir().execute();
-                break;
-                        }
-*/
+                break;*/
 
         Intent intent = new Intent(sign_in.this, MainActivity2Activity.class);
         startActivity(intent);
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_in, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 }
 

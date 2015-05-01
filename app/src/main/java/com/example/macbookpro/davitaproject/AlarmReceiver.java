@@ -7,16 +7,21 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.Toast;
+
+
 public class AlarmReceiver extends BroadcastReceiver {
     AlarmManager am;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "test");
@@ -24,10 +29,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         wl.acquire();
 
         Toast.makeText(context, "take your pills", Toast.LENGTH_LONG).show();
-        Log.i("test", "ALARM!!!");
         showNotification(context);
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(2000);
+
+
+        Intent i = new Intent(context, tran.class);
+        context.startActivity(i);
+
+
 
         //Release the lock
 
@@ -37,15 +47,25 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void showNotification(Context context) {
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context)
-                        .setContentTitle("My notification")
-                        .setContentText("why dont ya take them old man");
+        NotificationCompat.Builder mBuilder =new NotificationCompat.Builder(context);
+        mBuilder.setSmallIcon(R.drawable.clock);
+        mBuilder.setContentTitle("Reminde me");
+        mBuilder.setContentText("please take your pills.");
         mBuilder.setDefaults(Notification.DEFAULT_SOUND);
         mBuilder.setAutoCancel(true);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(1, mBuilder.build());
+        Uri sound = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
+        mBuilder.setSound(sound);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.clock);
+        mBuilder.setLargeIcon(icon);
+        mBuilder.setAutoCancel(true);
+
+        Notification n = mBuilder.build();
+
+        NotificationManager mNotificationManager =(NotificationManager)
+        context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(1, n);
+
     }
 
 
