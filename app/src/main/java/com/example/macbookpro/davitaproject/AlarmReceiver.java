@@ -34,13 +34,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         vibrator.vibrate(2000);
 
 
-        Intent i = new Intent(context, tran.class);
-        context.startActivity(i);
-
-
+        /*Intent i = new Intent(context, tran.class);
+        context.startActivity(i);*/
 
         //Release the lock
-
         wl.release();
 
     }

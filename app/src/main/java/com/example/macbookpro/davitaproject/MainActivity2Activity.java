@@ -3,8 +3,8 @@ package com.example.macbookpro.davitaproject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.LauncherActivity;
 import android.app.TimePickerDialog;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,21 +13,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.lang.String;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 
 public class MainActivity2Activity extends FragmentActivity {
@@ -35,8 +31,10 @@ public class MainActivity2Activity extends FragmentActivity {
 
 
     private ListView l1;
-    private ArrayAdapter adapter;
-    private ArrayList<String> mos;
+    private List<Listviewitem> items;
+    //private ArrayAdapter adapter;
+    //private ArrayList<String> mos;
+    private clva adapter;
     public static long timePicked = -1;
     static Calendar c;
     static int h;
@@ -45,14 +43,31 @@ public class MainActivity2Activity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity2);
-        l1=(ListView) findViewById(R.id.listView);
-        mos= new ArrayList<String>();
-        adapter =new ArrayAdapter<String>(getApplicationContext(),R.layout.item,mos);
-         l1.setAdapter(adapter);}
+        l1 = (ListView) findViewById(R.id.listView);
+        items= new ArrayList<Listviewitem>();
+        adapter= new clva(this,items);
+        l1.setAdapter(adapter);
+
+        /*mos = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item, mos);
+        l1.setAdapter(adapter);*/
 
 
 
 
+    }
+
+
+
+
+
+
+
+
+
+
+
+/*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,6 +77,7 @@ public class MainActivity2Activity extends FragmentActivity {
         if (id == R.id.action_settings) {
             return true;}
 return super.onOptionsItemSelected(item);}
+*/
 
 
 
@@ -87,7 +103,27 @@ return super.onOptionsItemSelected(item);}
 
                     if(alarm != null) {
                      alarm.setOnetimeTimer(MainActivity2Activity.this, timePicked);
-                        mos.add("Alarm is set on "+h+":"+m);
+                        //mos.add("Alarm is set on "+h+":"+m);
+
+                        /*MyAdapter adapter2 = new MyAdapter(this, l1());
+
+                        //2. setListAdapter
+                        l1.setAdapter(adapter2);
+                    }
+
+                    private ArrayList<ClipData.Item> generateData(){
+                        ArrayList<ClipData.Item> items = new ArrayList<ClipData.Item>();
+                        items.add(new ClipData.Item("Item 1","First Item on the list"));*/
+
+                        items.add(new Listviewitem()
+                                  {{
+                                          bd =R.drawable.clock;
+                                          Title="Alarm is set on "+h+":"+m;
+                                          subti="insuleen";
+                                      }}
+
+                        );
+
 
                         Toast.makeText(getApplicationContext(), "time is set", Toast.LENGTH_LONG).show();
                     }
@@ -165,7 +201,21 @@ return super.onOptionsItemSelected(item);}
 
         }
 
+
+
+
+
+
+
     }
+
+
+   class Listviewitem{
+       public int bd;
+       public String Title;
+       public String subti;
+   }
+
 
 
 }
