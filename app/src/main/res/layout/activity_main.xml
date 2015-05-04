@@ -19,11 +19,11 @@
             android:id="@+id/imageButton2"
             android:src="@drawable/log3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:gravity="left"
             android:layout_gravity="bottom"
             android:onClick="anotherActivity"
-            android:background="@null"
-            android:contentDescription="@string/b44v" />
+            android:background="@null" />
+
     </LinearLayout>
 </LinearLayout>

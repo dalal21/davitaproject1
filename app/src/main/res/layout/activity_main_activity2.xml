@@ -37,7 +37,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:contentDescription="@string/s2s"
             android:onClick="adding"
             android:longClickable="true"
             android:background="@drawable/ad"
