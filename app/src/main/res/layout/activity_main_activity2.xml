@@ -54,12 +54,26 @@
 
         <ListView android:id="@+id/listView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
         android:divider="@drawable/line"
         android:dividerHeight="3dip"
         android:listSelector="@android:color/transparent"
         android:cacheColorHint="#00000000"
-        android:drawSelectorOnTop="false"/>
+        android:drawSelectorOnTop="false"
+        android:layout_weight="5" />
+
+
+
+        <ImageButton
+            android:id="@+id/edit"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="@string/v4v"
+            android:contentDescription="@string/v4vb6b"
+            android:background="@drawable/edit"
+            android:layout_gravity="right"
+            android:onClick="modify"/>
+
     </LinearLayout>
 
 

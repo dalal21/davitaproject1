@@ -34,7 +34,12 @@
 
 
     <string name="title_activity_tran">tran</string>
-    <string name="b88b">Spinner Simple</string>
+    <string name="b88b">Add pills or treatment</string>
+    <string name="b99b">Add patient</string>
+    <string name="b77b">What medication</string>
+    <string name="b66b">For patient</string>
+    <string name="v4v">Button</string>
+    <string name="v4vb6b">b66b</string>
 
 
 </resources>

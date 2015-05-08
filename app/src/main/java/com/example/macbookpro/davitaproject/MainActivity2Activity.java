@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,26 +36,41 @@ public class MainActivity2Activity extends FragmentActivity implements OnItemCli
 
     protected ListView l1;
     protected List<Listviewitem> items;
-    private String pill = "";
-    private String patient= "";
     private clva adapter;
-    public String[] Platform;
-    public String[] Platform2;
+
+
+
+
+
     public static long timePicked = -1;
     static Calendar c;
     static int h;
     static int m;
 
+
+    List<String> platform = new ArrayList<String>();
+    List<String> platform2 = new ArrayList<String>();
+    public static String pill = "";
+    public static String patient= "";
+
+    ImageButton Edit;
+    //private static String addingpill = "";
+    //private static String addingpatient= "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_activity2);
-
+        Edit=(ImageButton) findViewById(R.id.edit);
         l1 = (ListView) findViewById(R.id.listView);
         items = new ArrayList<>();
         adapter = new clva(this, items);
         l1.setAdapter(adapter);
-        l1.setOnItemClickListener(this);}
+        l1.setOnItemClickListener(this);
+        platform.add(""); platform.add("sara"); platform.add("wafa"); platform.add("yasser"); platform.add("hana");
+        platform2.add(""); platform2.add("asprien"); platform2.add("fefadol"); platform2.add("banadol"); platform2.add("bentagon");
+    }
 
 
 
@@ -72,52 +88,17 @@ public class MainActivity2Activity extends FragmentActivity implements OnItemCli
 
 
 
-
-
-        alertSimple.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                adapter.notifyDataSetChanged();
-                if (timePicked != -1) {
-                    AlarmReceiver alarm = new AlarmReceiver();
-
-                    if (alarm != null) {
-                        alarm.setinfo(pill,patient);
-                        alarm.setOnetimeTimer(MainActivity2Activity.this, timePicked);
-
-                        items.add(new Listviewitem() {{
-                          bd = R.drawable.clock;
-                          Title = "Alarm is set on " + h + ":" + m;
-                          subti = "You should give "+pill+" ''Please be Specific about timing.'' "+"for Patient "+patient;
-                                  }});
-                        Toast.makeText(getApplicationContext(), "time is set", Toast.LENGTH_LONG).show();
-                    } else {
-                        //warn the user for ALARM not set?
-                        Toast.makeText(getApplicationContext(), "time is not set", Toast.LENGTH_LONG).show();}}    }
-        });
-
-
-        alertSimple.setNegativeButton("cancel", null);
-        alertSimple.setIcon(R.drawable.clock2);
-
-
-
-
-
-
-        Spinner pills_spinner;
-        Spinner patients_spinner;
         LayoutInflater INFLATER = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View tose = INFLATER.inflate(R.layout.spin, null);
-        Button but1 = (Button) tose.findViewById(R.id.dody);
-        pills_spinner = (Spinner) tose.findViewById(R.id.spiner);
-        patients_spinner=(Spinner) tose.findViewById(R.id.spinner);
+        View chooseView = INFLATER.inflate(R.layout.spin, null);
+        Button but1 = (Button) chooseView.findViewById(R.id.dody);
+        Spinner pills_spinner = (Spinner) chooseView.findViewById(R.id.spiner);
+        Spinner patients_spinner=(Spinner) chooseView.findViewById(R.id.spinner);
 
 
-        Platform = getResources().getStringArray(R.array.patients);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.patients, android.R.layout.simple_spinner_dropdown_item);
-        adapter3.setDropDownViewResource(R.layout.spinlay);
-        patients_spinner.setAdapter(adapter3);
+
+        ArrayAdapter<String> patient_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, platform);
+        patient_adapter.setDropDownViewResource(R.layout.spinlay);
+        patients_spinner.setAdapter(patient_adapter);
         patients_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -135,8 +116,7 @@ public class MainActivity2Activity extends FragmentActivity implements OnItemCli
 
 
 
-        Platform2 = getResources().getStringArray(R.array.pills);
-        ArrayAdapter<CharSequence> pills_adapter = ArrayAdapter.createFromResource(this, R.array.pills, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> pills_adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, platform2);
         pills_adapter.setDropDownViewResource(R.layout.spinlay);
         pills_spinner.setAdapter(pills_adapter);
 
@@ -145,26 +125,65 @@ public class MainActivity2Activity extends FragmentActivity implements OnItemCli
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view;
-                pill = tv.getText().toString();
+                pill =  tv.getText().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                pill = "";
+
             }
         });
 
 
 
 
-                but1.setOnClickListener(new View.OnClickListener() {
+        but1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new TimePickerFragments();
                 newFragment.show(getSupportFragmentManager(), "timePicker");
             }});
 
-        alertSimple.setView(tose);
+
+        alertSimple.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                adapter.notifyDataSetChanged();
+
+                if (timePicked != -1) {
+
+
+                    AlarmReceiver  alarm = new AlarmReceiver();
+
+                    if (alarm != null) {
+
+                        alarm.setOnetimeTimer(MainActivity2Activity.this, timePicked);
+
+                        items.add(new Listviewitem() {{
+                            bd = R.drawable.clock;
+                            Title = "Alarm is set on " + h + ":" + m;
+                            subti = "You should give " + pill + " ''Please be Specific about timing.'' " + "for Patient " + patient;
+                        }});
+                        Toast.makeText(getApplicationContext(), "time is set", Toast.LENGTH_LONG).show();
+                    } else {
+                        //warn the user for ALARM not set?
+                        Toast.makeText(getApplicationContext(), "time is not set", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }).setNegativeButton("cancel", null);
+
+
+        alertSimple.setIcon(R.drawable.clock2);
+
+
+
+
+
+
+
+
+        alertSimple.setView(chooseView);
         alertSimple.create();
         alertSimple.show();}
 
@@ -185,11 +204,135 @@ public class MainActivity2Activity extends FragmentActivity implements OnItemCli
                 l1.setAdapter(adapter);
         }});
 
-
+        //alarm.delala(MainActivity2Activity.this);
         dle.create();
         dle.show();
 
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public void modify(View view) {
+        final AlertDialog.Builder tomodify = new AlertDialog.Builder(MainActivity2Activity.this);
+        tomodify.setTitle("Edit profile");
+        tomodify.setIcon(R.drawable.edit);
+
+
+        LayoutInflater INFLATER = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View edit = INFLATER.inflate(R.layout.toinsert, null);
+
+        final Spinner addpill;
+        final Spinner addpatient;
+
+
+        addpill=(Spinner) edit.findViewById(R.id.pills);
+        addpatient=(Spinner) edit.findViewById(R.id.patients);
+
+
+
+        ArrayAdapter<CharSequence> adapt1 = ArrayAdapter.createFromResource(this, R.array.patients, android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<CharSequence> adapt2 = ArrayAdapter.createFromResource(this, R.array.pills, android.R.layout.simple_spinner_dropdown_item);
+        adapt1.setDropDownViewResource(R.layout.spinlay);
+        adapt2.setDropDownViewResource(R.layout.spinlay);
+
+
+
+        addpill.setAdapter(adapt2);
+        addpatient.setAdapter(adapt1);
+
+
+
+        tomodify.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+
+
+
+
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+                addpill.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        TextView tv = (TextView) view;
+                        addingpill = tv.getText().toString();
+                        Toast.makeText(getApplicationContext(), addingpill, Toast.LENGTH_LONG).show();
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        addingpill = "";
+                    }
+                });
+
+
+
+
+                addpatient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        TextView tv = (TextView) view;
+                        addingpatient = tv.getText().toString();
+                        platform.add(addingpatient);
+                        adapt1.notify();
+                        Toast.makeText(getApplicationContext(), addingpatient, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        addingpatient = "";
+                    }
+                });
+
+
+            }
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        tomodify.setView(edit);
+        tomodify.create();
+        tomodify.show();
+    }*/
+
+
+
+
+
+
+
+
+
+
+
 
 
 

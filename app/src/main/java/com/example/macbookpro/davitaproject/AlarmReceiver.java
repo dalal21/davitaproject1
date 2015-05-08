@@ -18,11 +18,14 @@ import android.widget.Toast;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+//import java.util.concurrent.atomic.AtomicInteger;
 
-public class AlarmReceiver extends BroadcastReceiver {
+
+/*public class AlarmReceiver extends BroadcastReceiver {
     AlarmManager am;
-    static String pill="";
-    static String patient="";
+    //static String pill="";
+    //static String patient="";
+
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -31,7 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "test");
         wl.acquire();
 
-        Toast.makeText(context, "take your pills", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Please conduct the treatment", Toast.LENGTH_LONG).show();
         showNotification(context);
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(2000);
@@ -46,7 +49,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mBuilder.setSmallIcon(R.drawable.clock);
         mBuilder.setContentTitle("Reminde me");
 
-        mBuilder.setContentText(pill+" for "+patient+" Please ..");
+        mBuilder.setContentText("Please conduct the treatment");
         mBuilder.setDefaults(Notification.DEFAULT_SOUND);
         mBuilder.setAutoCancel(true);
         Uri sound = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
@@ -85,24 +88,135 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, AlarmReceiver.class);
         final int _id = (int) System.currentTimeMillis();
         PendingIntent appIntent = PendingIntent.getBroadcast(context, _id, intent,PendingIntent.FLAG_ONE_SHOT);
-        //PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        //am.set(AlarmManager.RTC_WAKEUP, when, pi);
         am.set(AlarmManager.RTC_WAKEUP, when, appIntent);
+
+        //pill=pi;
+
+        //patient=pa;
 
     }
 
-    public void setinfo(String pi,String pa){
+   /*
+   public static void setinfo(String pi,String pa){
         pill=pi;
         patient=pa;
     }
-    /*public void delala(Context context){
+
+    public static String getPill()
+    {
+        return pill;
+    }
+    public static String getPatient()
+    {
+        return patient;
+    }
+
+/*public void delala(Context context){
+
+AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+Intent intent = new Intent(context, AlarmReceiver.class);
+    //final int _id = (int) System.currentTimeMillis();
+PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _id, intent, 0);
+    alarmManager.cancel(pendingIntent);
+
+
+}}*/
+
+
+
+
+
+public class AlarmReceiver extends BroadcastReceiver {
+    AlarmManager am;
+    //static String pill="";
+    //static String patient="";
+
+    @Override
+    public void onReceive(final Context context, Intent intent) {
+
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "test");
+
+        wl.acquire();
+
+        Toast.makeText(context, "Please conduct the treatment", Toast.LENGTH_LONG).show();
+        showNotification(context);
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(2000);
+
+
+        /*Intent i = new Intent(context, tran.class);
+        context.startActivity(i);*/
+
+        //Release the lock
+        wl.release();
+
+    }
+
+    private void showNotification(Context context) {
+
+        NotificationCompat.Builder mBuilder =new NotificationCompat.Builder(context);
+        mBuilder.setSmallIcon(R.drawable.clock);
+        mBuilder.setContentTitle("Reminde me");
+        mBuilder.setContentText("Please conduct the treatment");
+        mBuilder.setDefaults(Notification.DEFAULT_SOUND);
+        mBuilder.setAutoCancel(true);
+        Uri sound = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
+        mBuilder.setSound(sound);
+        Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.clock);
+        mBuilder.setLargeIcon(icon);
+        mBuilder.setAutoCancel(true);
+
+        Notification n = mBuilder.build();
+
+        NotificationManager mNotificationManager =(NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+
+
+
+        mNotificationManager.notify(NotificationID.getID(), n);
+
+    }
+
+
+    public void setOnetimeTimer(Context context, long when) {
         am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         final int _id = (int) System.currentTimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.cancel(pendingIntent);
-
-    }*/
+        PendingIntent appIntent = PendingIntent.getBroadcast(context, _id, intent,PendingIntent.FLAG_ONE_SHOT);
+        am.set(AlarmManager.RTC_WAKEUP, when, appIntent);
 
 
+        //pill=pi;
+        //patient=pa;
+    }
+
+   public static class NotificationID {
+        private final static AtomicInteger c = new AtomicInteger(0);
+        public static int getID() {
+            return c.incrementAndGet();
+        }}
+
+ /*
+    public static String getPill()
+    {
+        return pill;
+    }
+    public static String getPatient()
+    {
+        return patient;
+    }
+public void delala(Context context){
+
+AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+Intent intent = new Intent(context, AlarmReceiver.class);
+    //final int _id = (int) System.currentTimeMillis();
+PendingIntent pendingIntent = PendingIntent.getBroadcast(context, _id, intent, 0);
+    alarmManager.cancel(pendingIntent);
+
+
+}*/
 }
+

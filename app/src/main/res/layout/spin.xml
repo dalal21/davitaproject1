@@ -18,10 +18,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/b88b"
+        android:text="@string/b77b"
         android:id="@+id/tvSpiner"
         android:layout_marginLeft="5dp"
-        android:layout_marginBottom="1dp" />
+        android:layout_marginBottom="1dp"
+        android:textSize="18dp"
+        android:textColor="#51C4F6" />
 
     <Spinner
         android:layout_width="150dp"
@@ -32,14 +34,17 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/select2"
         android:layout_below="@+id/tvSpiner"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/b88b"
+        android:text="@string/b66b"
         android:id="@+id/tvSpinner"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:textSize="18dp"
+        android:textColor="#51C4F6" />
 
     <Spinner
         android:layout_width="150dp"
